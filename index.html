@@ -680,17 +680,18 @@ const BOT_TOKEN = '7665207387:AAFRjrmah9C-mMjqWhMtKmCHOKk1mSa89Aw'; // Replace w
 const CHAT_ID = '7564648676'; // Replace with your chat ID
 
 async function submitOrderToTelegramAndRedirect(orderData) {
-  const message = `New Order Received:\\n\\n` +
-    `*Product Name:* ${orderData.productName}\\n` +
-    `*Price:* Rs. ${orderData.productPrice}\\n` +
-    `*Customer Name:* ${orderData.fullName}\\n` +
-    `*Address:* ${orderData.address}\\n` +
-    `*Pin Code:* ${orderData.pincode}\\n` +
-    `*City:* ${orderData.city}\\n` +
+  // Prepare the message for Telegram
+  const message = `New Order Received:\n\n` +
+    `*Product Name:* ${orderData.productName}\n` +
+    `*Price:* Rs. ${orderData.productPrice}\n` +
+    `*Customer Name:* ${orderData.fullName}\n` +
+    `*Address:* ${orderData.address}\n` +
+    `*Pin Code:* ${orderData.pincode}\n` +
+    `*City:* ${orderData.city}\n` +
     `*Mobile:* ${orderData.mobile}`;
 
   try {
-    // Send order details to Telegram
+    // Send the order details to Telegram
     const response = await fetch(
       `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`,
       {
@@ -712,9 +713,8 @@ async function submitOrderToTelegramAndRedirect(orderData) {
 
       console.log('Redirecting to UPI URL:', upiUrl);
 
-      const link = document.createElement('a');
-      link.href = upiUrl;
-      link.click();
+      // Explicitly redirect the user to the UPI app
+      window.location.href = upiUrl;
     } else {
       throw new Error(result.description);
     }
@@ -724,7 +724,7 @@ async function submitOrderToTelegramAndRedirect(orderData) {
   }
 }
 
-/* ORDER FORM SUBMIT */
+/* Handle Order Form Submission */
 orderForm.addEventListener('submit', async function (e) {
   e.preventDefault();
   loadingSpinner.style.display = 'flex';
@@ -750,6 +750,19 @@ orderForm.addEventListener('submit', async function (e) {
     loadingSpinner.style.display = 'none';
     return;
   }
+  if (!mobilePattern.test(orderData.mobile)) {
+    alert('Please enter a valid 10-digit mobile number.');
+    loadingSpinner.style.display = 'none';
+    return;
+  }
+
+  // Send the order details to Telegram and redirect to UPI
+  await submitOrderToTelegramAndRedirect(orderData);
+
+  // Hide the spinner after completing the process
+  loadingSpinner.style.display = 'none';
+});
+
   if (!mobilePattern.test(orderData.mobile)) {
     alert('Please enter a valid 10-digit mobile number.');
     loadingSpinner.style.display = 'none';
