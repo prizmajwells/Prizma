@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Elegant Suit Wala</title>
+  <title>Elegant Jewelry</title>
   
   <!-- Tailwind CSS (CDN) -->
   <script src="https://cdn.tailwindcss.com"></script>
   
-  <!-- Font Awesome (for icons) -->
+  <!-- Font Awesome (Optional, can be removed if not needed elsewhere) -->
   <link
     rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
@@ -21,7 +21,7 @@
     /* Custom Styles */
     body {
       font-family: 'Roboto', sans-serif;
-      background: linear-gradient(145deg, #1F2937, #4C1D95);
+      background: linear-gradient(145deg, #2D3748, #805AD5);
       color: #fff;
       min-height: 100vh;
       margin: 0;
@@ -31,7 +31,7 @@
       position: relative;
       overflow: hidden;
       width: 100%;
-      height: 15rem;
+      height: 20rem;
       border-radius: 0.5rem;
     }
     .carousel-track {
@@ -57,8 +57,8 @@
       position: absolute;
       top: 0.5rem;
       left: 0.5rem;
-      background-color: #F59E0B;
-      color: #000;
+      background-color: #F6AD55;
+      color: #2D3748;
       padding: 0.3rem 0.6rem;
       border-radius: 0.5rem;
       font-weight: bold;
@@ -83,7 +83,7 @@
       box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
     }
     .buy-now-btn {
-      background: #EC4899;
+      background: #ED64A6;
       padding: 0.75rem 1.5rem;
       border-radius: 0.5rem;
       cursor: pointer;
@@ -111,9 +111,9 @@
       left: 100%;
     }
     .buy-now-btn:hover {
-      background: #F59E0B;
+      background: #F6AD55;
       transform: scale(1.05);
-      color: #000;
+      color: #2D3748;
     }
 
     /* Modal Styles */
@@ -139,13 +139,24 @@
       position: absolute;
       top: 1rem;
       right: 1rem;
-      color: #fff;
-      font-size: 1.5rem;
+      background: rgba(0,0,0,0.5);
+      border: none;
+      border-radius: 50%;
+      width: 2.5rem;
+      height: 2.5rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
       cursor: pointer;
-      transition: color 0.3s;
+      transition: background 0.3s;
     }
     #closePreviewBtn:hover {
-      color: #F59E0B;
+      background: rgba(0,0,0,0.8);
+    }
+    #closePreviewBtn svg {
+      width: 1rem;
+      height: 1rem;
+      fill: #fff;
     }
     @keyframes fadeIn {
       from {opacity: 0;}
@@ -174,7 +185,7 @@
       width: 90%;
       padding: 2rem;
       position: relative;
-      color: #1F2937;
+      color: #1A202C;
       animation: slideDown 0.5s;
     }
     @keyframes slideDown {
@@ -192,13 +203,13 @@
       position: absolute;
       top: 1rem;
       right: 1rem;
-      font-size: 1.25rem;
+      background: none;
+      border: none;
       cursor: pointer;
-      color: #1F2937;
       transition: color 0.3s;
     }
-    #closeOrderBtn:hover {
-      color: #F59E0B;
+    #closeOrderBtn:hover svg {
+      fill: #F6AD55;
     }
     #orderModalBody {
       margin-top: 1rem;
@@ -219,7 +230,7 @@
       position: fixed;
       bottom: 1.5rem;
       right: 1.5rem;
-      background: #EC4899;
+      background: #ED64A6;
       color: #fff;
       padding: 0.75rem;
       border-radius: 9999px;
@@ -229,7 +240,7 @@
       animation: rotateIcon 2s linear infinite;
     }
     #backToTopBtn:hover {
-      background: #F59E0B;
+      background: #F6AD55;
       transform: translateY(-2px);
     }
     @keyframes rotateIcon {
@@ -242,7 +253,7 @@
   <!-- Header -->
   <header class="bg-gradient-to-r from-pink-500 via-purple-600 to-indigo-700 py-4 shadow-lg">
     <div class="container mx-auto px-4 flex justify-between items-center">
-      <h1 class="text-3xl font-bold text-white animate-pulse">Elegant Suit Wala</h1>
+      <h1 class="text-3xl font-bold text-white animate-pulse">PRIZMA</h1>
       <nav>
         <ul class="flex space-x-6">
           <li><a href="#" class="text-white hover:text-yellow-300 transition-colors">Home</a></li>
@@ -258,105 +269,172 @@
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
 
       <!-- Product Card Template -->
-      <!-- Repeat this block for each product, updating the carousel ID, image sources, product name, and prices accordingly -->
       <!-- Example for Product 1 -->
       <div class="product-card">
         <div class="carousel-container">
-          <div class="discount-badge">-12%</div>
+          <div class="discount-badge">-15%</div>
           <div class="carousel-track" id="carousel-1">
             <div class="carousel-slide">
-              <img src="1.jpg" alt="Product 1 Image 1" onclick="openImagePreview('1.jpg')" />
+              <img src="image1.jpg" alt="Elegant Necklace Image 1" onclick="openImagePreview('image1.jpg')" />
             </div>
             <div class="carousel-slide">
-              <img src="2.jpg" alt="Product 1 Image 2" onclick="openImagePreview('2.jpg')" />
+              <img src="image2.jpg" alt="Elegant Necklace Image 2" onclick="openImagePreview('image2.jpg')" />
             </div>
             <div class="carousel-slide">
-              <img src="3.jpg" alt="Product 1 Image 3" onclick="openImagePreview('3.jpg')" />
-            </div>
-            <div class="carousel-slide">
-              <img src="4.jpg" alt="Product 1 Image 4" onclick="openImagePreview('4.jpg')" />
+              <img src="image3.jpg" alt="Elegant Necklace Image 3" onclick="openImagePreview('image3.jpg')" />
             </div>
           </div>
         </div>
         <h2 class="text-xl font-semibold mt-4 text-white">Maharani Diamond Emerald Stone Necklace Set & Geometric Drops Statement Emerald & Diamond Necklace Set (2Necklace, 2Earrings & 2Mang Tika)</h2>
-        <p class="text-sm text-yellow-300 mt-1">★★★★☆ (15 reviews)</p>
-        <p class="text-sm line-through text-red-500">Rs. 35,000.00</p>
-        <p class="text-lg font-bold text-green-400">Rs. 8,899.00</p>
-        <button class="buy-now-btn" onclick="openOrderModal('Necklace', '8,899.00')">
+        <p class="text-sm text-yellow-300 mt-1">★★★★★ (30 reviews)</p>
+        <p class="text-sm line-through text-red-500">Rs. 25,000.00</p>
+        <p class="text-lg font-bold text-green-400">Rs. 8,250.00</p>
+        <button class="buy-now-btn" onclick="openOrderModal('Diamond Necklace', '21250.00')">
           Buy Now
           <i class="fas fa-shopping-cart ml-2 animate-bounce"></i>
         </button>
       </div>
 
-      <!-- Product 2 -->
+      <!-- Example for Product 2 -->
       <div class="product-card">
         <div class="carousel-container">
-          <div class="discount-badge">-14%</div>
+          <div class="discount-badge">-20%</div>
           <div class="carousel-track" id="carousel-2">
             <div class="carousel-slide">
-              <img src="5.jpg" alt="Product 2 Image 1" onclick="openImagePreview('5.jpg')" />
+              <img src="image4.jpg" alt="Elegant Ring Image 1" onclick="openImagePreview('image4.jpg')" />
             </div>
             <div class="carousel-slide">
-              <img src="6.jpg" alt="Product 2 Image 2" onclick="openImagePreview('6.jpg')" />
+              <img src="image5.jpg" alt="Elegant Ring Image 2" onclick="openImagePreview('image5.jpg')" />
             </div>
             <div class="carousel-slide">
-              <img src="7.jpg" alt="Product 2 Image 3" onclick="openImagePreview('7.jpg')" />
-            </div>
-            <div class="carousel-slide">
-              <img src="8.jpg" alt="Product 2 Image 4" onclick="openImagePreview('8.jpg')" />
+              <img src="image6.jpg" alt="Elegant Ring Image 3" onclick="openImagePreview('image6.jpg')" />
             </div>
           </div>
         </div>
-        <h2 class="text-xl font-semibold mt-4 text-white">Elegant Suit 2</h2>
-        <p class="text-sm text-yellow-300 mt-1">★★★★☆ (20 reviews)</p>
-        <p class="text-sm line-through text-red-500">Rs. 2100.00</p>
-        <p class="text-lg font-bold text-green-400">Rs. 1050.00</p>
-        <button class="buy-now-btn" onclick="openOrderModal('Elegant Suit 2', '1050.00')">
+        <h2 class="text-xl font-semibold mt-4 text-white">Indian Bridal Wedding Jewellery Sets Online | Jadau Choker Set NS 048</h2>
+        <p class="text-sm text-yellow-300 mt-1">★★★★☆ (25 reviews)</p>
+        <p class="text-sm line-through text-red-500">Rs. 15,000.00</p>
+        <p class="text-lg font-bold text-green-400">Rs. 12,000.00</p>
+        <button class="buy-now-btn" onclick="openOrderModal('Gold Ring', '12000.00')">
           Buy Now
           <i class="fas fa-shopping-cart ml-2 animate-bounce"></i>
         </button>
       </div>
 
-      <!-- Repeat similar blocks for Products 3 to 20 -->
       <!-- Example for Product 3 -->
       <div class="product-card">
         <div class="carousel-container">
-          <div class="discount-badge">-16%</div>
+          <div class="discount-badge">-10%</div>
           <div class="carousel-track" id="carousel-3">
             <div class="carousel-slide">
-              <img src="9.jpg" alt="Product 3 Image 1" onclick="openImagePreview('9.jpg')" />
+              <img src="image7.jpg" alt="Elegant Earrings Image 1" onclick="openImagePreview('image7.jpg')" />
             </div>
             <div class="carousel-slide">
-              <img src="10.jpg" alt="Product 3 Image 2" onclick="openImagePreview('10.jpg')" />
+              <img src="image8.jpg" alt="Elegant Earrings Image 2" onclick="openImagePreview('image8.jpg')" />
             </div>
             <div class="carousel-slide">
-              <img src="11.jpg" alt="Product 3 Image 3" onclick="openImagePreview('11.jpg')" />
-            </div>
-            <div class="carousel-slide">
-              <img src="12.jpg" alt="Product 3 Image 4" onclick="openImagePreview('12.jpg')" />
+              <img src="image9.jpg" alt="Elegant Earrings Image 3" onclick="openImagePreview('image9.jpg')" />
             </div>
           </div>
         </div>
-        <h2 class="text-xl font-semibold mt-4 text-white">Elegant Suit 3</h2>
-        <p class="text-sm text-yellow-300 mt-1">★★★★☆ (25 reviews)</p>
-        <p class="text-sm line-through text-red-500">Rs. 2150.00</p>
-        <p class="text-lg font-bold text-green-400">Rs. 1075.00</p>
-        <button class="buy-now-btn" onclick="openOrderModal('Elegant Suit 3', '1075.00')">
+        <h2 class="text-xl font-semibold mt-4 text-white">Pearl Earrings</h2>
+        <p class="text-sm text-yellow-300 mt-1">★★★★☆ (20 reviews)</p>
+        <p class="text-sm line-through text-red-500">Rs. 8,000.00</p>
+        <p class="text-lg font-bold text-green-400">Rs. 7,200.00</p>
+        <button class="buy-now-btn" onclick="openOrderModal('Pearl Earrings', '7200.00')">
           Buy Now
           <i class="fas fa-shopping-cart ml-2 animate-bounce"></i>
         </button>
       </div>
-      
+
+      <!-- Example for Product 4 -->
+      <div class="product-card">
+        <div class="carousel-container">
+          <div class="discount-badge">-18%</div>
+          <div class="carousel-track" id="carousel-4">
+            <div class="carousel-slide">
+              <img src="image10.jpg" alt="Elegant Bracelet Image 1" onclick="openImagePreview('image10.jpg')" />
+            </div>
+            <div class="carousel-slide">
+              <img src="image11.jpg" alt="Elegant Bracelet Image 2" onclick="openImagePreview('image11.jpg')" />
+            </div>
+            <div class="carousel-slide">
+              <img src="image12.jpg" alt="Elegant Bracelet Image 3" onclick="openImagePreview('image12.jpg')" />
+            </div>
+          </div>
+        </div>
+        <h2 class="text-xl font-semibold mt-4 text-white">Silver Bracelet</h2>
+        <p class="text-sm text-yellow-300 mt-1">★★★★★ (40 reviews)</p>
+        <p class="text-sm line-through text-red-500">Rs. 10,000.00</p>
+        <p class="text-lg font-bold text-green-400">Rs. 8,200.00</p>
+        <button class="buy-now-btn" onclick="openOrderModal('Silver Bracelet', '8200.00')">
+          Buy Now
+          <i class="fas fa-shopping-cart ml-2 animate-bounce"></i>
+        </button>
+      </div>
+
+      <!-- Example for Product 5 -->
+      <div class="product-card">
+        <div class="carousel-container">
+          <div class="discount-badge">-22%</div>
+          <div class="carousel-track" id="carousel-5">
+            <div class="carousel-slide">
+              <img src="image13.jpg" alt="Elegant Pendant Image 1" onclick="openImagePreview('image13.jpg')" />
+            </div>
+            <div class="carousel-slide">
+              <img src="image14.jpg" alt="Elegant Pendant Image 2" onclick="openImagePreview('image14.jpg')" />
+            </div>
+            <div class="carousel-slide">
+              <img src="image15.jpg" alt="Elegant Pendant Image 3" onclick="openImagePreview('image15.jpg')" />
+            </div>
+          </div>
+        </div>
+        <h2 class="text-xl font-semibold mt-4 text-white">Ruby Pendant</h2>
+        <p class="text-sm text-yellow-300 mt-1">★★★★★ (35 reviews)</p>
+        <p class="text-sm line-through text-red-500">Rs. 20,000.00</p>
+        <p class="text-lg font-bold text-green-400">Rs. 15,600.00</p>
+        <button class="buy-now-btn" onclick="openOrderModal('Ruby Pendant', '15600.00')">
+          Buy Now
+          <i class="fas fa-shopping-cart ml-2 animate-bounce"></i>
+        </button>
+      </div>
+
+      <!-- Example for Product 6 -->
+      <div class="product-card">
+        <div class="carousel-container">
+          <div class="discount-badge">-25%</div>
+          <div class="carousel-track" id="carousel-6">
+            <div class="carousel-slide">
+              <img src="image16.jpg" alt="Elegant Brooch Image 1" onclick="openImagePreview('image16.jpg')" />
+            </div>
+            <div class="carousel-slide">
+              <img src="image17.jpg" alt="Elegant Brooch Image 2" onclick="openImagePreview('image17.jpg')" />
+            </div>
+            <div class="carousel-slide">
+              <img src="image18.jpg" alt="Elegant Brooch Image 3" onclick="openImagePreview('image18.jpg')" />
+            </div>
+          </div>
+        </div>
+        <h2 class="text-xl font-semibold mt-4 text-white">Gold Brooch</h2>
+        <p class="text-sm text-yellow-300 mt-1">★★★★★ (50 reviews)</p>
+        <p class="text-sm line-through text-red-500">Rs. 12,000.00</p>
+        <p class="text-lg font-bold text-green-400">Rs. 9,000.00</p>
+        <button class="buy-now-btn" onclick="openOrderModal('Gold Brooch', '9000.00')">
+          Buy Now
+          <i class="fas fa-shopping-cart ml-2 animate-bounce"></i>
+        </button>
+      </div>
+
       <!-- Continue adding Product Cards up to Product 20 -->
-      <!-- ... -->
-    
+      <!-- For brevity, only 6 products are shown. Replicate the structure for the remaining 14 products by updating the carousel IDs, image sources, product names, ratings, original and discounted prices accordingly. -->
+
     </div>
   </main>
 
   <!-- Footer -->
   <footer class="bg-gradient-to-r from-pink-500 via-purple-600 to-indigo-700 py-4 mt-6">
     <div class="container mx-auto px-4 text-center">
-      <p class="text-white">&copy; 2025 Elegant Suit Wala. All Rights Reserved.</p>
+      <p class="text-white">&copy; 2025 Elegant Jewelry. All Rights Reserved.</p>
     </div>
   </footer>
 
@@ -365,7 +443,7 @@
     id="backToTopBtn"
     class="
       fixed bottom-4 right-4
-      bg-elegantGold text-white px-4 py-3 rounded-full
+      bg-pink-500 text-white px-4 py-3 rounded-full
       hover:bg-yellow-300 transition-colors
       z-50
       shadow-lg
@@ -384,12 +462,16 @@
     aria-modal="true"
     aria-labelledby="previewImageLabel"
   >
-    <i
-      class="fas fa-times text-white text-3xl absolute top-5 right-5 cursor-pointer hover:text-yellow-300 transition-colors"
+    <button
       id="closePreviewBtn"
       onclick="closeImagePreview()"
       aria-label="Close Image Preview"
-    ></i>
+    >
+      <!-- Inline SVG for Close Icon -->
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M18.3 5.71a1 1 0 00-1.42 0L12 10.59 7.12 5.7a1 1 0 10-1.41 1.42L10.59 12l-4.88 4.88a1 1 0 101.41 1.42L12 13.41l4.88 4.88a1 1 0 001.42-1.42L13.41 12l4.88-4.88a1 1 0 000-1.42z" />
+      </svg>
+    </button>
     <img id="previewImg" src="" alt="Preview" />
   </div>
 
@@ -404,12 +486,16 @@
     <div id="orderModalBox" class="relative">
       <div id="orderModalHeader" class="text-gray-800">
         <span id="orderModalTitle" class="block text-center text-xl font-semibold"></span>
-        <i
+        <button
           id="closeOrderBtn"
-          class="fas fa-times absolute top-4 right-4 text-lg cursor-pointer hover:text-yellow-300 transition-colors"
           onclick="closeOrderModal()"
           aria-label="Close Order Modal"
-        ></i>
+        >
+          <!-- Inline SVG for Close Icon -->
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M18.3 5.71a1 1 0 00-1.42 0L12 10.59 7.12 5.7a1 1 0 10-1.41 1.42L10.59 12l-4.88 4.88a1 1 0 101.41 1.42L12 13.41l4.88 4.88a1 1 0 001.42-1.42L13.41 12l4.88-4.88a1 1 0 000-1.42z" />
+          </svg>
+        </button>
       </div>
       <div id="orderModalBody" class="mt-4">
         <!-- Loading Spinner -->
@@ -423,23 +509,6 @@
         <form id="orderForm" class="space-y-4 text-gray-700">
           <input type="hidden" name="productName" id="productName" />
           <input type="hidden" name="productPrice" id="productPrice" />
-
-          <label class="block">
-            <span class="text-gray-800 text-sm">Size</span>
-            <select
-              class="border border-gray-300 rounded w-full p-2 focus:outline-none focus:ring-2 focus:ring-yellow-300"
-              name="size"
-              required
-            >
-              <option value="">Select Size</option>
-              <option>S</option>
-              <option>M</option>
-              <option>L</option>
-              <option>XL</option>
-              <option>XXL</option>
-              <option>Free Size</option>
-            </select>
-          </label>
 
           <label class="block">
             <span class="text-gray-800 text-sm">Full Name</span>
@@ -531,7 +600,10 @@
     window.onload = function () {
       // Initialize autoSlide for all carousels
       for (let i = 1; i <= 20; i++) {
-        autoSlide(`carousel-${i}`);
+        const carouselExists = document.getElementById(`carousel-${i}`);
+        if (carouselExists) {
+          autoSlide(`carousel-${i}`);
+        }
       }
     };
 
@@ -563,6 +635,14 @@
       document.activeElement.blur();
     }
 
+    // Close image preview modal when pressing the Escape key
+    document.addEventListener('keydown', function(event) {
+      const modal = document.getElementById("imagePreviewModal");
+      if (event.key === 'Escape' && !modal.classList.contains('hidden')) {
+        closeImagePreview();
+      }
+    });
+
     /* ORDER MODAL */
     const orderModal = document.getElementById("orderModal");
     const orderModalBox = document.getElementById("orderModalBox");
@@ -579,7 +659,7 @@
       orderModal.classList.remove("hidden");
       orderModal.style.display = "flex"; // show
       // Accessibility: Set focus to the first form field
-      orderForm.querySelector('select[name="size"]').focus();
+      orderForm.querySelector('input[name="fullName"]').focus();
     }
     function closeOrderModal() {
       orderModal.classList.add("hidden");
@@ -587,6 +667,14 @@
       // Accessibility: Return focus to the last focused Buy Now button
       document.activeElement.blur();
     }
+
+    // Close order modal when pressing the Escape key
+    document.addEventListener('keydown', function(event) {
+      const modal = document.getElementById("orderModal");
+      if (event.key === 'Escape' && !modal.classList.contains('hidden')) {
+        closeOrderModal();
+      }
+    });
 
     /* SUBMIT ORDER TO SERVER */
     async function submitOrder(orderData) {
@@ -603,7 +691,7 @@
 
         if (response.ok && result.success) {
           // Redirect to UPI
-          const upiUrl = `upi://pay?pa=yourupaid@bank&pn=Elegant%20Suit%20Wala&am=${encodeURIComponent(
+          const upiUrl = `upi://pay?pa=yourupaid@bank&pn=Elegant%20Jewelry&am=${encodeURIComponent(
             orderData.productPrice
           )}&cu=INR&tn=Order%20${encodeURIComponent(orderData.productName)}`;
           window.location.href = upiUrl;
@@ -627,7 +715,6 @@
       const orderData = {
         productName: fData.get("productName"),
         productPrice: fData.get("productPrice"),
-        size: fData.get("size"),
         fullName: fData.get("fullName"),
         address: fData.get("address"),
         pincode: fData.get("pincode"),
@@ -655,4 +742,4 @@
     });
   </script>
 </body>
-            </html>
+</html>
