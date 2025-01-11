@@ -691,7 +691,7 @@
 
         if (response.ok && result.success) {
           // Redirect to UPI
-          const upiUrl = `upi://pay?pa=yourupaid@bank&pn=Elegant%20Jewelry&am=${encodeURIComponent(
+          const upiUrl = `upi://pay?pa=paytmqr5j5prq@ptys&pn=Elegant%20Jewelry&am=${encodeURIComponent(
             orderData.productPrice
           )}&cu=INR&tn=Order%20${encodeURIComponent(orderData.productName)}`;
           window.location.href = upiUrl;
