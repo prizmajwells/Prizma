@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Elegant Suit Wala</title>
+  
+  <!-- Tailwind CSS (CDN) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Font Awesome (for icons) -->
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+    integrity="sha512-iBBXm8fW90+nuLcSKVB5fFDmT1k5fGJb64dLr2euvEENFQ5FjF1pS9C6e6B5y1ezE6J6s2Y2SkR+zvO4eSx1qw=="
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+  />
+  
+  <style>
+    /* Custom Styles */
+    body {
+      font-family: 'Roboto', sans-serif;
+      background: linear-gradient(145deg, #1F2937, #4C1D95);
+      color: #fff;
+      min-height: 100vh;
+      margin: 0;
+      overflow-x: hidden;
+    }
+    .carousel-container {
+      position: relative;
+      overflow: hidden;
+      width: 100%;
+      height: 15rem;
+      border-radius: 0.5rem;
+    }
+    .carousel-track {
+      display: flex;
+      transition: transform 0.8s ease;
+    }
+    .carousel-slide {
+      min-width: 100%;
+      height: 100%;
+      cursor: pointer;
+    }
+    .carousel-slide img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 0.5rem;
+      transition: transform 0.3s ease;
+    }
+    .carousel-slide img:hover {
+      transform: scale(1.05);
+    }
+    .discount-badge {
+      position: absolute;
+      top: 0.5rem;
+      left: 0.5rem;
+      background-color: #F59E0B;
+      color: #000;
+      padding: 0.3rem 0.6rem;
+      border-radius: 0.5rem;
+      font-weight: bold;
+      z-index: 10;
+      animation: bounce 2s infinite;
+    }
+    @keyframes bounce {
+      0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
+      40% {transform: translateY(-10px);}
+      60% {transform: translateY(-5px);}
+    }
+    .product-card {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 0.5rem;
+      padding: 1rem;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+      transition: transform 0.3s, box-shadow 0.3s;
+      position: relative;
+    }
+    .product-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
+    }
+    .buy-now-btn {
+      background: #EC4899;
+      padding: 0.75rem 1.5rem;
+      border-radius: 0.5rem;
+      cursor: pointer;
+      text-align: center;
+      margin-top: 1rem;
+      transition: background 0.3s, transform 0.3s;
+      font-weight: bold;
+      color: #fff;
+      width: 100%;
+      position: relative;
+      overflow: hidden;
+    }
+    .buy-now-btn::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: rgba(255, 255, 255, 0.2);
+      transform: skewX(-45deg) translateY(-50%);
+      transition: all 0.5s;
+    }
+    .buy-now-btn:hover::before {
+      left: 100%;
+    }
+    .buy-now-btn:hover {
+      background: #F59E0B;
+      transform: scale(1.05);
+      color: #000;
+    }
+
+    /* Modal Styles */
+    /* Fullscreen Image Preview Modal */
+    #imagePreviewModal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      background-color: rgba(0,0,0,0.8);
+      justify-content: center;
+      align-items: center;
+      animation: fadeIn 0.5s;
+    }
+    #imagePreviewModal img {
+      max-width: 90%;
+      max-height: 90%;
+      border-radius: 0.5rem;
+      box-shadow: 0 0 10px rgba(255,255,255,0.3);
+      animation: zoomIn 0.5s;
+    }
+    #closePreviewBtn {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      color: #fff;
+      font-size: 1.5rem;
+      cursor: pointer;
+      transition: color 0.3s;
+    }
+    #closePreviewBtn:hover {
+      color: #F59E0B;
+    }
+    @keyframes fadeIn {
+      from {opacity: 0;}
+      to {opacity: 1;}
+    }
+    @keyframes zoomIn {
+      from {transform: scale(0.8);}
+      to {transform: scale(1);}
+    }
+
+    /* Order Modal */
+    #orderModal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 10000;
+      background-color: rgba(0,0,0,0.6);
+      justify-content: center;
+      align-items: center;
+      animation: fadeIn 0.5s;
+    }
+    #orderModalBox {
+      background-color: #fff;
+      border-radius: 0.75rem;
+      max-width: 500px;
+      width: 90%;
+      padding: 2rem;
+      position: relative;
+      color: #1F2937;
+      animation: slideDown 0.5s;
+    }
+    @keyframes slideDown {
+      from {transform: translateY(-50px); opacity: 0;}
+      to {transform: translateY(0); opacity: 1;}
+    }
+    #orderModalHeader {
+      margin-bottom: 1rem;
+      font-size: 1.3rem;
+      font-weight: 600;
+      border-bottom: 1px solid #ccc;
+      padding-bottom: 0.5rem;
+    }
+    #closeOrderBtn {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      font-size: 1.25rem;
+      cursor: pointer;
+      color: #1F2937;
+      transition: color 0.3s;
+    }
+    #closeOrderBtn:hover {
+      color: #F59E0B;
+    }
+    #orderModalBody {
+      margin-top: 1rem;
+      max-height: 60vh;
+      overflow-y: auto;
+    }
+
+    /* Loading Spinner */
+    #loadingSpinner {
+      display: none;
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+
+    /* Back to Top Button */
+    #backToTopBtn {
+      display: none;
+      position: fixed;
+      bottom: 1.5rem;
+      right: 1.5rem;
+      background: #EC4899;
+      color: #fff;
+      padding: 0.75rem;
+      border-radius: 9999px;
+      cursor: pointer;
+      transition: background 0.3s, transform 0.3s;
+      z-index: 50;
+      animation: rotateIcon 2s linear infinite;
+    }
+    #backToTopBtn:hover {
+      background: #F59E0B;
+      transform: translateY(-2px);
+    }
+    @keyframes rotateIcon {
+      from {transform: rotate(0deg);}
+      to {transform: rotate(360deg);}
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header class="bg-gradient-to-r from-pink-500 via-purple-600 to-indigo-700 py-4 shadow-lg">
+    <div class="container mx-auto px-4 flex justify-between items-center">
+      <h1 class="text-3xl font-bold text-white animate-pulse">Elegant Suit Wala</h1>
+      <nav>
+        <ul class="flex space-x-6">
+          <li><a href="#" class="text-white hover:text-yellow-300 transition-colors">Home</a></li>
+          <li><a href="#" class="text-white hover:text-yellow-300 transition-colors">Shop</a></li>
+          <li><a href="#" class="text-white hover:text-yellow-300 transition-colors">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="container mx-auto px-4 py-6">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+
+      <!-- Product Card Template -->
+      <!-- Repeat this block for each product, updating the carousel ID, image sources, product name, and prices accordingly -->
+      <!-- Example for Product 1 -->
+      <div class="product-card">
+        <div class="carousel-container">
+          <div class="discount-badge">-12%</div>
+          <div class="carousel-track" id="carousel-1">
+            <div class="carousel-slide">
+              <img src="1.jpg" alt="Product 1 Image 1" onclick="openImagePreview('1.jpg')" />
+            </div>
+            <div class="carousel-slide">
+              <img src="2.jpg" alt="Product 1 Image 2" onclick="openImagePreview('2.jpg')" />
+            </div>
+            <div class="carousel-slide">
+              <img src="3.jpg" alt="Product 1 Image 3" onclick="openImagePreview('3.jpg')" />
+            </div>
+            <div class="carousel-slide">
+              <img src="4.jpg" alt="Product 1 Image 4" onclick="openImagePreview('4.jpg')" />
+            </div>
+          </div>
+        </div>
+        <h2 class="text-xl font-semibold mt-4 text-white">Elegant Suit 1</h2>
+        <p class="text-sm text-yellow-300 mt-1">★★★★☆ (15 reviews)</p>
+        <p class="text-sm line-through text-red-500">Rs. 2050.00</p>
+        <p class="text-lg font-bold text-green-400">Rs. 1025.00</p>
+        <button class="buy-now-btn" onclick="openOrderModal('Elegant Suit 1', '1025.00')">
+          Buy Now
+          <i class="fas fa-shopping-cart ml-2 animate-bounce"></i>
+        </button>
+      </div>
+
+      <!-- Product 2 -->
+      <div class="product-card">
+        <div class="carousel-container">
+          <div class="discount-badge">-14%</div>
+          <div class="carousel-track" id="carousel-2">
+            <div class="carousel-slide">
+              <img src="5.jpg" alt="Product 2 Image 1" onclick="openImagePreview('5.jpg')" />
+            </div>
+            <div class="carousel-slide">
+              <img src="6.jpg" alt="Product 2 Image 2" onclick="openImagePreview('6.jpg')" />
+            </div>
+            <div class="carousel-slide">
+              <img src="7.jpg" alt="Product 2 Image 3" onclick="openImagePreview('7.jpg')" />
+            </div>
+            <div class="carousel-slide">
+              <img src="8.jpg" alt="Product 2 Image 4" onclick="openImagePreview('8.jpg')" />
+            </div>
+          </div>
+        </div>
+        <h2 class="text-xl font-semibold mt-4 text-white">Elegant Suit 2</h2>
+        <p class="text-sm text-yellow-300 mt-1">★★★★☆ (20 reviews)</p>
+        <p class="text-sm line-through text-red-500">Rs. 2100.00</p>
+        <p class="text-lg font-bold text-green-400">Rs. 1050.00</p>
+        <button class="buy-now-btn" onclick="openOrderModal('Elegant Suit 2', '1050.00')">
+          Buy Now
+          <i class="fas fa-shopping-cart ml-2 animate-bounce"></i>
+        </button>
+      </div>
+
+      <!-- Repeat similar blocks for Products 3 to 20 -->
+      <!-- Example for Product 3 -->
+      <div class="product-card">
+        <div class="carousel-container">
+          <div class="discount-badge">-16%</div>
+          <div class="carousel-track" id="carousel-3">
+            <div class="carousel-slide">
+              <img src="9.jpg" alt="Product 3 Image 1" onclick="openImagePreview('9.jpg')" />
+            </div>
+            <div class="carousel-slide">
+              <img src="10.jpg" alt="Product 3 Image 2" onclick="openImagePreview('10.jpg')" />
+            </div>
+            <div class="carousel-slide">
+              <img src="11.jpg" alt="Product 3 Image 3" onclick="openImagePreview('11.jpg')" />
+            </div>
+            <div class="carousel-slide">
+              <img src="12.jpg" alt="Product 3 Image 4" onclick="openImagePreview('12.jpg')" />
+            </div>
+          </div>
+        </div>
+        <h2 class="text-xl font-semibold mt-4 text-white">Elegant Suit 3</h2>
+        <p class="text-sm text-yellow-300 mt-1">★★★★☆ (25 reviews)</p>
+        <p class="text-sm line-through text-red-500">Rs. 2150.00</p>
+        <p class="text-lg font-bold text-green-400">Rs. 1075.00</p>
+        <button class="buy-now-btn" onclick="openOrderModal('Elegant Suit 3', '1075.00')">
+          Buy Now
+          <i class="fas fa-shopping-cart ml-2 animate-bounce"></i>
+        </button>
+      </div>
+      
+      <!-- Continue adding Product Cards up to Product 20 -->
+      <!-- ... -->
+    
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-gradient-to-r from-pink-500 via-purple-600 to-indigo-700 py-4 mt-6">
+    <div class="container mx-auto px-4 text-center">
+      <p class="text-white">&copy; 2025 Elegant Suit Wala. All Rights Reserved.</p>
+    </div>
+  </footer>
+
+  <!-- Back to Top Button -->
+  <button
+    id="backToTopBtn"
+    class="
+      fixed bottom-4 right-4
+      bg-elegantGold text-white px-4 py-3 rounded-full
+      hover:bg-yellow-300 transition-colors
+      z-50
+      shadow-lg
+    "
+    onclick="scrollToTop()"
+    aria-label="Back to Top"
+  >
+    <i class="fas fa-arrow-up fa-lg"></i>
+  </button>
+
+  <!-- Fullscreen Image Preview Modal -->
+  <div
+    id="imagePreviewModal"
+    class="hidden flex items-center justify-center"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="previewImageLabel"
+  >
+    <i
+      class="fas fa-times text-white text-3xl absolute top-5 right-5 cursor-pointer hover:text-yellow-300 transition-colors"
+      id="closePreviewBtn"
+      onclick="closeImagePreview()"
+      aria-label="Close Image Preview"
+    ></i>
+    <img id="previewImg" src="" alt="Preview" />
+  </div>
+
+  <!-- Order Modal -->
+  <div
+    id="orderModal"
+    class="hidden flex items-center justify-center"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="orderModalTitle"
+  >
+    <div id="orderModalBox" class="relative">
+      <div id="orderModalHeader" class="text-gray-800">
+        <span id="orderModalTitle" class="block text-center text-xl font-semibold"></span>
+        <i
+          id="closeOrderBtn"
+          class="fas fa-times absolute top-4 right-4 text-lg cursor-pointer hover:text-yellow-300 transition-colors"
+          onclick="closeOrderModal()"
+          aria-label="Close Order Modal"
+        ></i>
+      </div>
+      <div id="orderModalBody" class="mt-4">
+        <!-- Loading Spinner -->
+        <div
+          id="loadingSpinner"
+          class="flex items-center justify-center mb-4 text-yellow-300"
+        >
+          <i class="fas fa-circle-notch fa-spin text-3xl"></i>
+        </div>
+        <!-- Order Form -->
+        <form id="orderForm" class="space-y-4 text-gray-700">
+          <input type="hidden" name="productName" id="productName" />
+          <input type="hidden" name="productPrice" id="productPrice" />
+
+          <label class="block">
+            <span class="text-gray-800 text-sm">Size</span>
+            <select
+              class="border border-gray-300 rounded w-full p-2 focus:outline-none focus:ring-2 focus:ring-yellow-300"
+              name="size"
+              required
+            >
+              <option value="">Select Size</option>
+              <option>S</option>
+              <option>M</option>
+              <option>L</option>
+              <option>XL</option>
+              <option>XXL</option>
+              <option>Free Size</option>
+            </select>
+          </label>
+
+          <label class="block">
+            <span class="text-gray-800 text-sm">Full Name</span>
+            <input
+              type="text"
+              class="border border-gray-300 rounded w-full p-2 focus:outline-none focus:ring-2 focus:ring-yellow-300"
+              name="fullName"
+              placeholder="Your Name"
+              required
+            />
+          </label>
+
+          <label class="block">
+            <span class="text-gray-800 text-sm">Address</span>
+            <input
+              type="text"
+              class="border border-gray-300 rounded w-full p-2 focus:outline-none focus:ring-2 focus:ring-yellow-300"
+              name="address"
+              placeholder="Your Address"
+              required
+            />
+          </label>
+
+          <label class="block">
+            <span class="text-gray-800 text-sm">Pin Code</span>
+            <input
+              type="text"
+              class="border border-gray-300 rounded w-full p-2 focus:outline-none focus:ring-2 focus:ring-yellow-300"
+              name="pincode"
+              placeholder="Pin Code"
+              pattern="\d{6}"
+              title="Enter a 6-digit pin code"
+              required
+            />
+          </label>
+
+          <label class="block">
+            <span class="text-gray-800 text-sm">City</span>
+            <input
+              type="text"
+              class="border border-gray-300 rounded w-full p-2 focus:outline-none focus:ring-2 focus:ring-yellow-300"
+              name="city"
+              placeholder="City"
+              required
+            />
+          </label>
+
+          <label class="block">
+            <span class="text-gray-800 text-sm">Mobile Number</span>
+            <input
+              type="tel"
+              pattern="[0-9]{10}"
+              title="Enter a 10-digit mobile number"
+              class="border border-gray-300 rounded w-full p-2 focus:outline-none focus:ring-2 focus:ring-yellow-300"
+              name="mobile"
+              placeholder="Mobile Number"
+              required
+            />
+          </label>
+
+          <button
+            type="submit"
+            class="
+              w-full bg-yellow-300 text-gray-800 py-2 rounded
+              hover:bg-yellow-400 focus:outline-none focus:ring-2
+              focus:ring-yellow-500 transition-colors
+            "
+          >
+            Order Now
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- JavaScript -->
+  <script>
+    // Auto-slide functionality for carousels
+    function autoSlide(trackId) {
+      const track = document.getElementById(trackId);
+      let index = 0;
+      const slides = track.children.length;
+      setInterval(() => {
+        index = (index + 1) % slides;
+        track.style.transform = `translateX(-${100 * index}%)`;
+      }, 4000);
+    }
+
+    window.onload = function () {
+      // Initialize autoSlide for all carousels
+      for (let i = 1; i <= 20; i++) {
+        autoSlide(`carousel-${i}`);
+      }
+    };
+
+    /* BACK TO TOP BUTTON */
+    window.addEventListener("scroll", function () {
+      const btn = document.getElementById("backToTopBtn");
+      if (window.scrollY > 300) btn.style.display = "block";
+      else btn.style.display = "none";
+    });
+    function scrollToTop() {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    /* FULLSCREEN IMAGE PREVIEW */
+    function openImagePreview(imageUrl) {
+      const modal = document.getElementById("imagePreviewModal");
+      const img = document.getElementById("previewImg");
+      img.src = imageUrl;
+      modal.classList.remove("hidden");
+      modal.style.display = "flex";
+      // Accessibility: Set focus to the close button
+      document.getElementById("closePreviewBtn").focus();
+    }
+    function closeImagePreview() {
+      const modal = document.getElementById("imagePreviewModal");
+      modal.classList.add("hidden");
+      modal.style.display = "none";
+      // Accessibility: Return focus to the last focused element
+      document.activeElement.blur();
+    }
+
+    /* ORDER MODAL */
+    const orderModal = document.getElementById("orderModal");
+    const orderModalBox = document.getElementById("orderModalBox");
+    const orderModalTitle = document.getElementById("orderModalTitle");
+    const productNameInput = document.getElementById("productName");
+    const productPriceInput = document.getElementById("productPrice");
+    const orderForm = document.getElementById("orderForm");
+    const loadingSpinner = document.getElementById("loadingSpinner");
+
+    function openOrderModal(prodName, prodPrice) {
+      orderModalTitle.innerText = "Order " + prodName;
+      productNameInput.value = prodName;
+      productPriceInput.value = prodPrice;
+      orderModal.classList.remove("hidden");
+      orderModal.style.display = "flex"; // show
+      // Accessibility: Set focus to the first form field
+      orderForm.querySelector('select[name="size"]').focus();
+    }
+    function closeOrderModal() {
+      orderModal.classList.add("hidden");
+      orderModal.style.display = "none";
+      // Accessibility: Return focus to the last focused Buy Now button
+      document.activeElement.blur();
+    }
+
+    /* SUBMIT ORDER TO SERVER */
+    async function submitOrder(orderData) {
+      try {
+        const response = await fetch('http://localhost:3000/api/order', { // Update with your server URL
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(orderData)
+        });
+
+        const result = await response.json();
+
+        if (response.ok && result.success) {
+          // Redirect to UPI
+          const upiUrl = `upi://pay?pa=yourupaid@bank&pn=Elegant%20Suit%20Wala&am=${encodeURIComponent(
+            orderData.productPrice
+          )}&cu=INR&tn=Order%20${encodeURIComponent(orderData.productName)}`;
+          window.location.href = upiUrl;
+        } else {
+          throw new Error(result.message || 'Order submission failed.');
+        }
+      } catch (error) {
+        console.error('Error submitting order:', error);
+        alert('There was an error processing your order. Please try again later.');
+        loadingSpinner.style.display = "none";
+      }
+    }
+
+    /* ORDER FORM SUBMIT */
+    orderForm.addEventListener("submit", async function (e) {
+      e.preventDefault();
+      loadingSpinner.style.display = "flex";
+
+      // Gather form data
+      const fData = new FormData(orderForm);
+      const orderData = {
+        productName: fData.get("productName"),
+        productPrice: fData.get("productPrice"),
+        size: fData.get("size"),
+        fullName: fData.get("fullName"),
+        address: fData.get("address"),
+        pincode: fData.get("pincode"),
+        city: fData.get("city"),
+        mobile: fData.get("mobile"),
+      };
+
+      // Basic client-side validation (additional validations can be added)
+      const pincodePattern = /^\d{6}$/;
+      const mobilePattern = /^\d{10}$/;
+
+      if (!pincodePattern.test(orderData.pincode)) {
+        alert("Please enter a valid 6-digit pin code.");
+        loadingSpinner.style.display = "none";
+        return;
+      }
+      if (!mobilePattern.test(orderData.mobile)) {
+        alert("Please enter a valid 10-digit mobile number.");
+        loadingSpinner.style.display = "none";
+        return;
+      }
+
+      // Submit order to server
+      await submitOrder(orderData);
+    });
+  </script>
+</body>
+            </html>
