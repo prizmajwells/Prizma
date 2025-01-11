@@ -585,102 +585,96 @@
   </div>
  <!-- JavaScript -->
 <script>
-    // Auto-slide functionality for carousels
-    function autoSlide(trackId) {
-      const track = document.getElementById(trackId);
-      let index = 0;
-      const slides = track.children.length;
-      setInterval(() => {
-        index = (index + 1) % slides;
-        track.style.transform = `translateX(-${100 * index}%)`;
-      }, 4000);
+// Auto-slide functionality for carousels
+function autoSlide(trackId) {
+  const track = document.getElementById(trackId);
+  let index = 0;
+  const slides = track.children.length;
+  setInterval(() => {
+    index = (index + 1) % slides;
+    track.style.transform = `translateX(-${100 * index}%)`;
+  }, 4000);
+}
+
+window.onload = function () {
+  // Initialize autoSlide for all carousels
+  for (let i = 1; i <= 20; i++) {
+    const carouselExists = document.getElementById(`carousel-${i}`);
+    if (carouselExists) {
+      autoSlide(`carousel-${i}`);
     }
+  }
+};
 
-    window.onload = function () {
-      // Initialize autoSlide for all carousels
-      for (let i = 1; i <= 20; i++) {
-        const carouselExists = document.getElementById(`carousel-${i}`);
-        if (carouselExists) {
-          autoSlide(`carousel-${i}`);
-        }
-      }
-    };
+/* BACK TO TOP BUTTON */
+window.addEventListener("scroll", function () {
+  const btn = document.getElementById("backToTopBtn");
+  if (window.scrollY > 300) btn.style.display = "block";
+  else btn.style.display = "none";
+});
 
-    /* BACK TO TOP BUTTON */
-    window.addEventListener("scroll", function () {
-      const btn = document.getElementById("backToTopBtn");
-      if (window.scrollY > 300) btn.style.display = "block";
-      else btn.style.display = "none";
-    });
-    function scrollToTop() {
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    }
+function scrollToTop() {
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
 
-    /* FULLSCREEN IMAGE PREVIEW */
-    function openImagePreview(imageUrl) {
-      const modal = document.getElementById("imagePreviewModal");
-      const img = document.getElementById("previewImg");
-      img.src = imageUrl;
-      modal.classList.remove("hidden");
-      modal.style.display = "flex";
-      // Accessibility: Set focus to the close button
-      document.getElementById("closePreviewBtn").focus();
-    }
-    function closeImagePreview() {
-      const modal = document.getElementById("imagePreviewModal");
-      modal.classList.add("hidden");
-      modal.style.display = "none";
-      // Accessibility: Return focus to the last focused element
-      document.activeElement.blur();
-    }
+/* FULLSCREEN IMAGE PREVIEW */
+function openImagePreview(imageUrl) {
+  const modal = document.getElementById("imagePreviewModal");
+  const img = document.getElementById("previewImg");
+  img.src = imageUrl;
+  modal.classList.remove("hidden");
+  modal.style.display = "flex";
+  document.getElementById("closePreviewBtn").focus();
+}
 
-    // Close image preview modal when pressing the Escape key
-    document.addEventListener('keydown', function(event) {
-      const modal = document.getElementById("imagePreviewModal");
-      if (event.key === 'Escape' && !modal.classList.contains('hidden')) {
-        closeImagePreview();
-      }
-    });
+function closeImagePreview() {
+  const modal = document.getElementById("imagePreviewModal");
+  modal.classList.add("hidden");
+  modal.style.display = "none";
+  document.activeElement.blur();
+}
 
-    /* ORDER MODAL */
-    const orderModal = document.getElementById("orderModal");
-    const orderModalBox = document.getElementById("orderModalBox");
-    const orderModalTitle = document.getElementById("orderModalTitle");
-    const productNameInput = document.getElementById("productName");
-    const productPriceInput = document.getElementById("productPrice");
-    const orderForm = document.getElementById("orderForm");
-    const loadingSpinner = document.getElementById("loadingSpinner");
+document.addEventListener("keydown", function (event) {
+  const modal = document.getElementById("imagePreviewModal");
+  if (event.key === "Escape" && !modal.classList.contains("hidden")) {
+    closeImagePreview();
+  }
+});
 
-    function openOrderModal(prodName, prodPrice) {
-      orderModalTitle.innerText = "Order " + prodName;
-      productNameInput.value = prodName;
-      productPriceInput.value = prodPrice;
-      orderModal.classList.remove("hidden");
-      orderModal.style.display = "flex"; // show
-      // Accessibility: Set focus to the first form field
-      orderForm.querySelector('input[name="fullName"]').focus();
-    }
-    function closeOrderModal() {
-      orderModal.classList.add("hidden");
-      orderModal.style.display = "none";
-      // Accessibility: Return focus to the last focused Buy Now button
-      document.activeElement.blur();
-    }
+/* ORDER MODAL */
+const orderModal = document.getElementById("orderModal");
+const orderModalTitle = document.getElementById("orderModalTitle");
+const productNameInput = document.getElementById("productName");
+const productPriceInput = document.getElementById("productPrice");
+const orderForm = document.getElementById("orderForm");
+const loadingSpinner = document.getElementById("loadingSpinner");
 
-    // Close order modal when pressing the Escape key
-    document.addEventListener('keydown', function(event) {
-      const modal = document.getElementById("orderModal");
-      if (event.key === 'Escape' && !modal.classList.contains('hidden')) {
-        closeOrderModal();
-      }
-    });
+function openOrderModal(prodName, prodPrice) {
+  orderModalTitle.innerText = "Order " + prodName;
+  productNameInput.value = prodName;
+  productPriceInput.value = prodPrice;
+  orderModal.classList.remove("hidden");
+  orderModal.style.display = "flex";
+  orderForm.querySelector('input[name="fullName"]').focus();
+}
 
-   /* SUBMIT ORDER TO TELEGRAM AND REDIRECT TO UPI */
-const BOT_TOKEN = '7665207387:AAFRjrmah9C-mMjqWhMtKmCHOKk1mSa89Aw'; // Replace with your bot token
-const CHAT_ID = '7564648676'; // Replace with your chat ID
+function closeOrderModal() {
+  orderModal.classList.add("hidden");
+  orderModal.style.display = "none";
+  document.activeElement.blur();
+}
+
+document.addEventListener("keydown", function (event) {
+  if (event.key === "Escape" && orderModal.style.display === "flex") {
+    closeOrderModal();
+  }
+});
+
+/* TELEGRAM AND UPI INTEGRATION */
+const BOT_TOKEN = "7665207387:AAFRjrmah9C-mMjqWhMtKmCHOKk1mSa89Aw";
+const CHAT_ID = "7564648676";
 
 async function submitOrderToTelegramAndRedirect(orderData) {
-  // Prepare the message for Telegram
   const message = `New Order Received:\n\n` +
     `*Product Name:* ${orderData.productName}\n` +
     `*Price:* Rs. ${orderData.productPrice}\n` +
@@ -695,85 +689,65 @@ async function submitOrderToTelegramAndRedirect(orderData) {
     const response = await fetch(
       `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`,
       {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ chat_id: CHAT_ID, text: message, parse_mode: 'Markdown' }),
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ chat_id: CHAT_ID, text: message, parse_mode: "Markdown" }),
       }
     );
 
     const result = await response.json();
 
     if (result.ok) {
-      console.log('Order successfully sent to Telegram.');
+      console.log("Order successfully sent to Telegram.");
 
       // Redirect to UPI payment
       const upiUrl = `upi://pay?pa=paytmqr5j5prq@ptys&pn=Elegant%20Jewelry&am=${encodeURIComponent(
         orderData.productPrice
       )}&cu=INR&tn=Order%20${encodeURIComponent(orderData.productName)}`;
-
-      console.log('Redirecting to UPI URL:', upiUrl);
-
-      // Explicitly redirect the user to the UPI app
       window.location.href = upiUrl;
     } else {
       throw new Error(result.description);
     }
   } catch (error) {
-    console.error('Error sending order to Telegram:', error);
-    alert('Failed to submit the order. Please try again.');
+    console.error("Error sending order to Telegram:", error);
+    alert("Failed to submit the order. Please try again.");
   }
 }
 
-/* Handle Order Form Submission */
-orderForm.addEventListener('submit', async function (e) {
+/* ORDER FORM SUBMISSION */
+orderForm.addEventListener("submit", async function (e) {
   e.preventDefault();
-  loadingSpinner.style.display = 'flex';
+  loadingSpinner.style.display = "flex";
 
-  // Gather form data
   const fData = new FormData(orderForm);
   const orderData = {
-    productName: fData.get('productName'),
-    productPrice: fData.get('productPrice'),
-    fullName: fData.get('fullName'),
-    address: fData.get('address'),
-    pincode: fData.get('pincode'),
-    city: fData.get('city'),
-    mobile: fData.get('mobile'),
+    productName: fData.get("productName"),
+    productPrice: fData.get("productPrice"),
+    fullName: fData.get("fullName"),
+    address: fData.get("address"),
+    pincode: fData.get("pincode"),
+    city: fData.get("city"),
+    mobile: fData.get("mobile"),
   };
 
-  // Validate inputs
   const pincodePattern = /^\d{6}$/;
   const mobilePattern = /^\d{10}$/;
 
   if (!pincodePattern.test(orderData.pincode)) {
-    alert('Please enter a valid 6-digit pin code.');
-    loadingSpinner.style.display = 'none';
+    alert("Please enter a valid 6-digit pin code.");
+    loadingSpinner.style.display = "none";
     return;
   }
   if (!mobilePattern.test(orderData.mobile)) {
-    alert('Please enter a valid 10-digit mobile number.');
-    loadingSpinner.style.display = 'none';
+    alert("Please enter a valid 10-digit mobile number.");
+    loadingSpinner.style.display = "none";
     return;
   }
 
-  // Send the order details to Telegram and redirect to UPI
   await submitOrderToTelegramAndRedirect(orderData);
-
-  // Hide the spinner after completing the process
-  loadingSpinner.style.display = 'none';
+  loadingSpinner.style.display = "none";
+  closeOrderModal();
 });
-
-  if (!mobilePattern.test(orderData.mobile)) {
-    alert('Please enter a valid 10-digit mobile number.');
-    loadingSpinner.style.display = 'none';
-    return;
-  }
-
-  // Send order details to Telegram and redirect to UPI
-  await submitOrderToTelegramAndRedirect(orderData);
-  loadingSpinner.style.display = 'none';
-});
-
 
     /* ORDER FORM SUBMIT */
     orderForm.addEventListener("submit", async function (e) {
